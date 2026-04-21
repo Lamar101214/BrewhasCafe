@@ -8,22 +8,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+
 
 namespace BrewhasCafe
 {
     public partial class AdminDashboardForm : UserControl
     {
-        static string conn = ConfigurationManager.ConnectionStrings["Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Administrator\\Documents\\cafe.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True"].ConnectionString;
+        static string conn = ConfigurationManager.ConnectionStrings["MyDatabaseConnection       "].ConnectionString;
         SqlConnection connect = new SqlConnection(conn);
 
         public AdminDashboardForm()
         {
             InitializeComponent();
 
-            displayTotalCashier();
-            displayTotalCustomers();
-            displayTotalIncome();
-           displayTodaysIncome();
+            if (!DesignMode)
+            {
+                displayTotalCashier();
+                displayTotalCustomers();
+                displayTotalIncome();
+                displayTodaysIncome();
+            }
+           
+            
         }
 
         public void refreshData()

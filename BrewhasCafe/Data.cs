@@ -8,6 +8,6 @@ namespace BrewhasCafe
 {
     class Data
     {
-        public static string username;
+        public static string username = "";
     }
 }

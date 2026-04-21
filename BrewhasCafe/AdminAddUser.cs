@@ -14,16 +14,19 @@
 
     namespace BrewhasCafe
     {
-        public partial class AdminAddUser : UserControl
+    public partial class AdminAddUser : UserControl
+    {
+        // Use the "name" from your XML, which is myDatabaseConnection
+        static string conn = ConfigurationManager.ConnectionStrings["myDatabaseConnection"].ConnectionString;
+        SqlConnection connect = new SqlConnection(conn);
+        public AdminAddUser()
         {
-            static string conn = ConfigurationManager.ConnectionStrings["Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Administrator\\Documents\\cafe.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True"].ConnectionString;
-            SqlConnection connect = new SqlConnection(conn);
-            public AdminAddUser()
+            InitializeComponent();
+            if (!DesignMode)
             {
-                InitializeComponent();
-
                 displayAddUserData();
             }
+        }
 
             public void refreshData()
             {
@@ -35,15 +38,19 @@
                 displayAddUserData();
             }
 
-            public void displayAddUserData()
-            {
-                AdminAddUser usersData = new AdminAddUser();
-                List<AdminAddUser> listData = usersData.usersListData();
+        public void displayAddUserData()
+        {
+            // 1. Use the data class 'AdminAddUsersData', not the UserControl 'AdminAddUser'
+            AdminAddUsersData usersData = new AdminAddUsersData();
 
-                dataGridView1.DataSource = listData;
-            }
+            // 2. Ensure the List type is 'AdminAddUsersData'
+            List<AdminAddUsersData> listData = usersData.usersListData();
 
-            private void label4_Click(object sender, EventArgs e)
+            // 3. Bind to your DataGridView
+            dataGridView1.DataSource = listData;
+        }
+
+        private void label4_Click(object sender, EventArgs e)
             {
 
             }
@@ -196,12 +203,13 @@
                         adminAddUsers_imageView.Image = null;
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("No Image :3", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (Exception ex)
+             {
+                // By adding + ex.Message, the computer finally sees that 'ex' is being used!
+                MessageBox.Show("No Image :3 \n\nDetails: " + ex.Message, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-            }
+        }
 
             private void adminAddUsers_updateBtn_Click(object sender, EventArgs e)
             {

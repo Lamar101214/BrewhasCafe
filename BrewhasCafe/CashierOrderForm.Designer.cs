@@ -398,15 +398,33 @@
                 this.cashierOrderForm_orderTable.RowHeadersVisible = false;
                 this.cashierOrderForm_orderTable.Size = new System.Drawing.Size(346, 334);
                 this.cashierOrderForm_orderTable.TabIndex = 4;
-               
-                // 
-                // printDocument1
-                // 
-                
-                // 
-                // printPreviewDialog1
-                // 
-                this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+
+            // Type ComboBox Event
+            this.cashierOrderForm_type.SelectedIndexChanged += new System.EventHandler(this.cashierOrderForm_type_SelectedIndexChanged);
+
+            // Product ID ComboBox Event
+            this.cashierOrderForm_productID.SelectedIndexChanged += new System.EventHandler(this.cashierOrderForm_productID_SelectedIndexChanged);
+
+            // Buttons Events
+            this.cashierOrderForm_addBtn.Click += new System.EventHandler(this.cashierOrderForm_addBtn_Click);
+            this.cashierOrderForm_removeBtn.Click += new System.EventHandler(this.cashierOrderForm_removeBtn_Click);
+            this.cashierOrderForm_clearBtn.Click += new System.EventHandler(this.cashierOrderForm_clearBtn_Click_1);
+            this.cashierOrderForm_payBtn.Click += new System.EventHandler(this.cashierOrderForm_payBtn_Click);
+            this.cashierOrderForm_receiptBtn.Click += new System.EventHandler(this.cashierOrderForm_receiptBtn_Click);
+
+            // Amount TextBox Events
+            this.cashierOrderForm_amount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cashierOrderForm_amount_KeyDown);
+
+            // Table Events
+            this.cashierOrderForm_orderTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.cashierOrderForm_orderTable_CellClick);
+            // 
+            // printDocument1
+            // 
+
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
                 this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
                 this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
                 this.printPreviewDialog1.Enabled = true;

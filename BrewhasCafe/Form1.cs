@@ -117,7 +117,8 @@ namespace BrewhasCafe
                                     }
                                     else if (userRole == "Cashier")
                                     {
-                                       
+                                        CashierMainForm cashierForm = new CashierMainForm();
+                                        cashierForm.Show();
 
                                         this.Hide();
 

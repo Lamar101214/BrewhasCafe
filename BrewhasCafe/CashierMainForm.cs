@@ -10,107 +10,106 @@ using System.Windows.Forms;
 
 namespace BrewhasCafe
 {
-    
-        public partial class CashierMainForm : Form
+    public partial class CashierMainForm : Form
+    {
+        public CashierMainForm()
         {
-            public CashierMainForm()
+            InitializeComponent();
+
+            // Displays the username of the person currently logged in
+            displayUsername();
+        }
+
+        public void displayUsername()
+        {
+            // Capitalizes the first letter of the stored username for a professional look
+            string getUsername = Data.username;
+            if (!string.IsNullOrEmpty(getUsername))
             {
-                InitializeComponent();
+                username.Text = char.ToUpper(getUsername[0]) + getUsername.Substring(1);
             }
+        }
 
-            private void close_Click(object sender, EventArgs e)
+        private void close_Click(object sender, EventArgs e)
+        {
+            DialogResult check = MessageBox.Show("Are you sure you want to exit?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (check == DialogResult.Yes)
             {
-                DialogResult check = MessageBox.Show("Are you sure you want to exit?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (check == DialogResult.Yes)
-                {
-                    Application.Exit();
-                }
+                Application.Exit();
             }
+        }
 
-            private void logout_btn_Click(object sender, EventArgs e)
+        private void logout_btn_Click(object sender, EventArgs e)
+        {
+            DialogResult check = MessageBox.Show("Are you sure you want to sign out?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (check == DialogResult.Yes)
             {
-                DialogResult check = MessageBox.Show("Are you sure you want to sign out?"
-                    , "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (check == DialogResult.Yes)
-                {
-                    Form1 loginForm = new Form1();
-                    loginForm.Show();
-
-                    this.Hide();
-                }
+                Form1 loginForm = new Form1();
+                loginForm.Show();
+                this.Hide();
             }
+        }
 
-            private void cashierOrderForm1_Load(object sender, EventArgs e)
+        private void addProducts_btn_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = false;
+            adminAddProducts1.Visible = true;
+            cashierOrderForm1.Visible = false;
+            cashierCustomersForm1.Visible = false;
+
+            // Calls refreshData to ensure the product list is current
+            AdminAddProducts aaProd = adminAddProducts1 as AdminAddProducts;
+            if (aaProd != null)
             {
-
+                aaProd.refreshData();
             }
+        }
 
-            private void addProducts_btn_Click(object sender, EventArgs e)
+        private void dashboard_btn_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = true;
+            adminAddProducts1.Visible = false;
+            cashierOrderForm1.Visible = false;
+            cashierCustomersForm1.Visible = false;
+
+            // Updated to match the AdminDashboardForm class name
+            AdminDashboardForm adForm = adminDashboardForm1 as AdminDashboardForm;
+            if (adForm != null)
             {
-                adminDashboardForm1.Visible = false;
-                adminAddProducts1.Visible = true;
-                cashierOrderForm1.Visible = false;
-                cashierCustomersForm1.Visible = false;
-
-                AdminAddProducts aaProd = adminAddProducts1 as AdminAddProducts;
-
-                if (aaProd != null)
-                {
-                    aaProd.refreshData();
-                }
+                adForm.refreshData();
             }
+        }
 
-            private void dashboard_btn_Click(object sender, EventArgs e)
+        private void order_btn_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = false;
+            adminAddProducts1.Visible = false;
+            cashierOrderForm1.Visible = true;
+            cashierCustomersForm1.Visible = false;
+
+            // Updates the order form data before displaying
+            CashierOrderForm coForm = cashierOrderForm1 as CashierOrderForm;
+            if (coForm != null)
             {
-                //adminDashboardForm1.Visible = true;
-                //adminAddProducts1.Visible = false;
-                //cashierOrderForm1.Visible = false;
-                //cashierCustomersForm1.Visible = false;
-
-                //AdminDashboardForm adForm = adminDashboardForm1 as AdminDashboardForm;
-
-                //if (adForm != null)
-                //{
-                //    adForm.refreshData();
-                //}
+                coForm.refreshData();
             }
+        }
 
-            private void order_btn_Click(object sender, EventArgs e)
+        private void customer_btn_Click(object sender, EventArgs e)
+        {
+            adminDashboardForm1.Visible = false;
+            adminAddProducts1.Visible = false;
+            cashierOrderForm1.Visible = false;
+            cashierCustomersForm1.Visible = true;
+
+            // Updated to use the singular 'CashierCustomerForm'
+            CashierCustomersForm ccForm = cashierCustomersForm1 as CashierCustomersForm;
+            if (ccForm != null)
             {
-                adminDashboardForm1.Visible = false;
-                adminAddProducts1.Visible = false;
-                cashierOrderForm1.Visible = true;
-                cashierCustomersForm1.Visible = false;
-
-                CashierOrderForm coForm = cashierOrderForm1 as CashierOrderForm;
-
-                if (coForm != null)
-                {
-                    coForm.refreshData();
-                }
-            }
-
-            private void customer_btn_Click(object sender, EventArgs e)
-            {
-                adminDashboardForm1.Visible = false;
-                adminAddProducts1.Visible = false;
-                cashierOrderForm1.Visible = false;
-                cashierCustomersForm1.Visible = true;
-
-                CashierCustomersForm ccForm = cashierCustomersForm1 as CashierCustomersForm;
-
-                if (ccForm != null)
-                {
-                    ccForm.refreshData();
-                }
+                ccForm.refreshData();
             }
         }
     }
-
-
-// THATS IT FOR THIS VIDEO, THANKS FOR WATCHING !!
-// HOPE YOU ENJOY THIS VIDEO TUTORIAL
-// SUBSCRIBE OUR CHANNEL FOR MORE COOL PROJECT TUTORIALS : ) 
-// THANK YOU !! 
+}
